@@ -1,0 +1,223 @@
+/* ── Global ──────────────────────────────────────────── */
+:root {
+  --bg: #0f172a;
+  --bg-card: #1e293b;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --green: #22c55e;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --blue: #38bdf8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", "Pretendard", -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── App Layout ─────────────────────────────────────── */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  text-align: center;
+  padding: 1.5rem 0 1rem;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.app-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+
+.app-main {
+  flex: 1;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ── Sensor Cards Row ───────────────────────────────── */
+.sensor-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sensor-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.2rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.sensor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sensor-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.sensor-icon {
+  font-size: 1.3rem;
+}
+
+.sensor-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.sensor-status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.sensor-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.sensor-unit {
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-left: 0.3rem;
+  opacity: 0.7;
+}
+
+/* ── Dashboard Body (Chart + Alerts) ────────────────── */
+.dashboard-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+}
+
+.chart-area {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+.history-chart h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.chart-empty {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4rem 0;
+}
+
+/* ── Alert Panel ────────────────────────────────────── */
+.alert-area {
+  min-width: 0;
+}
+
+.alert-panel {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+.alert-panel h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.no-alerts {
+  color: var(--green);
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
+
+.alert-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.alert-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.alert-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.alert-message {
+  color: var(--text-muted);
+}
+
+.loading {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem;
+  grid-column: 1 / -1;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sensor-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dashboard-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .sensor-cards {
+    grid-template-columns: 1fr;
+  }
+  .sensor-value {
+    font-size: 1.8rem;
+  }
+}
