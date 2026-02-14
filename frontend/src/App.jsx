@@ -4,6 +4,7 @@ import { fetchSensors, fetchAlerts } from "./api/client";
 import SensorCard from "./components/SensorCard";
 import HistoryChart from "./components/HistoryChart";
 import AlertPanel from "./components/AlertPanel";
+import Unity3DView from "./components/Unity3DView";
 import "./App.css";
 
 function App() {
@@ -35,6 +36,9 @@ function App() {
             ))
           )}
         </section>
+
+        {/* 3D Process View */}
+        <Unity3DView sensors={sensors} />
 
         {/* Chart + Alerts layout */}
         <section className="dashboard-body">

@@ -19,6 +19,18 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
+# Unity
+unity/AquaView3D/Library/
+unity/AquaView3D/Temp/
+unity/AquaView3D/Logs/
+unity/AquaView3D/UserSettings/
+unity/AquaView3D/obj/
+unity/AquaView3D/Builds/
+*.csproj
+*.sln
+*.pidb
+*.unityproj
+
 # Editor
 .vscode/
 .idea/
