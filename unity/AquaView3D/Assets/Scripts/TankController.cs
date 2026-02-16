@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 탱크 내부 수위를 유량(flow) 센서 값에 따라 애니메이션합니다.
 /// Water 오브젝트의 Y 스케일을 조절하여 수위를 표현합니다.
+/// Unity 6 URP 호환: Material 인스턴스 방식 사용.
 /// </summary>
 public class TankController : MonoBehaviour
 {
@@ -25,17 +26,19 @@ public class TankController : MonoBehaviour
 
     private float targetScale;
     private Color targetColor;
-    private MaterialPropertyBlock propBlock;
+    private Material waterMat;
 
-    private readonly Color colorNormal  = new Color(0.13f, 0.59f, 0.95f, 0.8f);  // 파랑
-    private readonly Color colorWarning = new Color(0.96f, 0.62f, 0.04f, 0.8f);  // 주황
-    private readonly Color colorDanger  = new Color(0.94f, 0.27f, 0.27f, 0.8f);  // 빨강
+    private readonly Color colorNormal  = new Color(0.13f, 0.59f, 0.95f, 0.8f);
+    private readonly Color colorWarning = new Color(0.96f, 0.62f, 0.04f, 0.8f);
+    private readonly Color colorDanger  = new Color(0.94f, 0.27f, 0.27f, 0.8f);
 
     void Start()
     {
-        propBlock = new MaterialPropertyBlock();
         targetScale = maxWaterScale * 0.5f;
         targetColor = colorNormal;
+
+        if (waterRenderer != null)
+            waterMat = waterRenderer.material; // 인스턴스 생성
 
         if (SensorDataReceiver.Instance != null)
             SensorDataReceiver.Instance.OnSensorUpdate += HandleSensorUpdate;
@@ -45,26 +48,23 @@ public class TankController : MonoBehaviour
     {
         if (SensorDataReceiver.Instance != null)
             SensorDataReceiver.Instance.OnSensorUpdate -= HandleSensorUpdate;
+
+        if (waterMat != null)
+            Destroy(waterMat);
     }
 
     void Update()
     {
         if (waterTransform == null) return;
 
-        // 부드러운 수위 변화
         Vector3 scale = waterTransform.localScale;
         scale.y = Mathf.Lerp(scale.y, targetScale, Time.deltaTime * 2f);
         waterTransform.localScale = scale;
 
-        // 부드러운 색상 변화
-        if (waterRenderer != null)
+        if (waterMat != null)
         {
-            waterRenderer.GetPropertyBlock(propBlock);
-            Color current = propBlock.GetColor("_BaseColor");
-            if (current.a == 0) current = colorNormal;
-            Color next = Color.Lerp(current, targetColor, Time.deltaTime * 3f);
-            propBlock.SetColor("_BaseColor", next);
-            waterRenderer.SetPropertyBlock(propBlock);
+            Color current = waterMat.GetColor("_BaseColor");
+            waterMat.SetColor("_BaseColor", Color.Lerp(current, targetColor, Time.deltaTime * 3f));
         }
     }
 

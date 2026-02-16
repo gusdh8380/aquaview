@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 파이프 색상을 pH 센서 값에 따라 변경합니다.
 /// 정상=파랑, 경고=노랑, 위험=빨강으로 시각화합니다.
+/// Unity 6 URP 호환: Material 인스턴스 방식 사용.
 /// </summary>
 public class PipeController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PipeController : MonoBehaviour
     public Renderer[] pipeRenderers;
 
     private Color targetColor;
-    private MaterialPropertyBlock propBlock;
+    private Material[] pipeMats;
 
     private readonly Color colorNormal  = new Color(0.13f, 0.59f, 0.95f, 1f);
     private readonly Color colorWarning = new Color(0.96f, 0.62f, 0.04f, 1f);
@@ -18,8 +19,17 @@ public class PipeController : MonoBehaviour
 
     void Start()
     {
-        propBlock = new MaterialPropertyBlock();
         targetColor = colorNormal;
+
+        if (pipeRenderers != null)
+        {
+            pipeMats = new Material[pipeRenderers.Length];
+            for (int i = 0; i < pipeRenderers.Length; i++)
+            {
+                if (pipeRenderers[i] != null)
+                    pipeMats[i] = pipeRenderers[i].material; // 인스턴스 생성
+            }
+        }
 
         if (SensorDataReceiver.Instance != null)
             SensorDataReceiver.Instance.OnSensorUpdate += HandleSensorUpdate;
@@ -29,21 +39,23 @@ public class PipeController : MonoBehaviour
     {
         if (SensorDataReceiver.Instance != null)
             SensorDataReceiver.Instance.OnSensorUpdate -= HandleSensorUpdate;
+
+        if (pipeMats != null)
+        {
+            foreach (var m in pipeMats)
+                if (m != null) Destroy(m);
+        }
     }
 
     void Update()
     {
-        if (pipeRenderers == null) return;
+        if (pipeMats == null) return;
 
-        foreach (var r in pipeRenderers)
+        foreach (var mat in pipeMats)
         {
-            if (r == null) continue;
-            r.GetPropertyBlock(propBlock);
-            Color current = propBlock.GetColor("_BaseColor");
-            if (current.a == 0) current = colorNormal;
-            Color next = Color.Lerp(current, targetColor, Time.deltaTime * 3f);
-            propBlock.SetColor("_BaseColor", next);
-            r.SetPropertyBlock(propBlock);
+            if (mat == null) continue;
+            Color current = mat.GetColor("_BaseColor");
+            mat.SetColor("_BaseColor", Color.Lerp(current, targetColor, Time.deltaTime * 3f));
         }
     }
 
