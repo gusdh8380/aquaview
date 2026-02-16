@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaView3D</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #0f172a; }
+    #unity-canvas { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+
+  <script src="Build/AquaView3D.loader.js"></script>
+  <script>
+    var unityInstance = null;
+
+    createUnityInstance(document.getElementById("unity-canvas"), {
+      dataUrl:      "Build/AquaView3D.data",
+      frameworkUrl:  "Build/AquaView3D.framework.js",
+      codeUrl:       "Build/AquaView3D.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName:   "DefaultCompany",
+      productName:   "AquaView3D",
+      productVersion: "0.1.0"
+    }).then(function (instance) {
+      unityInstance = instance;
+    });
+
+    // React postMessage → Unity SendMessage 브릿지
+    window.addEventListener("message", function (event) {
+      if (!unityInstance) return;
+      if (!event.data || event.data.type !== "SENSOR_UPDATE") return;
+
+      var json = JSON.stringify(event.data);
+      unityInstance.SendMessage("SensorDataReceiver", "ReceiveSensorData", json);
+    });
+  </script>
+</body>
+</html>

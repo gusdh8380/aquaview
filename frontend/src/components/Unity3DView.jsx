@@ -20,7 +20,7 @@ export default function Unity3DView({ sensors }) {
       <div className="unity-frame-wrapper">
         <iframe
           ref={iframeRef}
-          src="/unity/index.html"
+          src="/unity/AquaView3D/index.html"
           title="AquaView 3D"
           className="unity-iframe"
           allow="autoplay; fullscreen"
