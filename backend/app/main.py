@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import alerts, history, sensors
+from .routers import alerts, history, pipeline, sensors
 
 app = FastAPI(
     title="AquaView API",
@@ -24,6 +24,7 @@ app.add_middleware(
 app.include_router(sensors.router, prefix="/api", tags=["sensors"])
 app.include_router(alerts.router, prefix="/api", tags=["alerts"])
 app.include_router(history.router, prefix="/api", tags=["history"])
+app.include_router(pipeline.router, prefix="/api", tags=["pipeline"])
 
 
 @app.get("/")

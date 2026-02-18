@@ -19,3 +19,26 @@ export async function fetchHistory(sensor, limit = 20) {
   if (!res.ok) throw new Error("Failed to fetch history");
   return res.json();
 }
+
+// ── Pipeline API ─────────────────────────────────────────────────────
+
+/** GET /api/pipeline — default HRT (ratio=1.0) result */
+export async function fetchPipeline() {
+  const res = await fetch(`${BASE_URL}/pipeline`);
+  if (!res.ok) throw new Error("Failed to fetch pipeline");
+  return res.json();
+}
+
+/**
+ * POST /api/pipeline/params — recalculate with custom HRT ratios
+ * @param {Array<{stage: string, hrt_ratio: number}>} params
+ */
+export async function updatePipelineParams(params) {
+  const res = await fetch(`${BASE_URL}/pipeline/params`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ params }),
+  });
+  if (!res.ok) throw new Error("Failed to update pipeline params");
+  return res.json();
+}
