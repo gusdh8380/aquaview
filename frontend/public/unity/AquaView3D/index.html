@@ -32,10 +32,19 @@
     // React postMessage → Unity SendMessage 브릿지
     window.addEventListener("message", function (event) {
       if (!unityInstance) return;
-      if (!event.data || event.data.type !== "SENSOR_UPDATE") return;
+      if (!event.data || !event.data.type) return;
 
-      var json = JSON.stringify(event.data);
-      unityInstance.SendMessage("SensorDataReceiver", "ReceiveSensorData", json);
+      // 실시간 센서 데이터 (pH, 탁도, 유량, 수온)
+      if (event.data.type === "SENSOR_UPDATE") {
+        var json = JSON.stringify(event.data);
+        unityInstance.SendMessage("SensorDataReceiver", "ReceiveSensorData", json);
+      }
+
+      // 파이프라인 처리 결과 (BOD, TSS, NH3, 5단계 상태)
+      if (event.data.type === "PIPELINE_UPDATE") {
+        var json = JSON.stringify(event.data.pipeline);
+        unityInstance.SendMessage("SensorDataReceiver", "ReceivePipelineData", json);
+      }
     });
   </script>
 </body>

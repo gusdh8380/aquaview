@@ -84,7 +84,7 @@ function App() {
         </section>
 
         {/* ── 3D Process View (Unity WebGL) ── */}
-        <Unity3DView sensors={sensors} />
+        <Unity3DView sensors={sensors} pipelineResult={pipelineResult} />
 
         {/* ══════════════════════════════════════════════
             PIPELINE SIMULATION SECTION
