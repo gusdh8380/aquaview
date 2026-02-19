@@ -30,6 +30,10 @@ unity/AquaView3D/Builds/
 *.sln
 *.pidb
 *.unityproj
+unity/AquaView3D/.vsconfig
+
+# Claude Code
+.claude/
 
 # Editor
 .vscode/
