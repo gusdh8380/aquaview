@@ -44,3 +44,4 @@ unity/AquaView3D/.vsconfig
 .vscode/
 .idea/
 *.sw?
+*.pem
