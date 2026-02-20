@@ -29,18 +29,14 @@ function App() {
   const { data: sensors, loading: sensorsLoading } = usePolling(fetchSensors, 3000);
   const { data: alerts } = usePolling(fetchAlerts, 3000);
 
-  // Initial pipeline fetch (once on mount)
+  // Pipeline polling — 10초마다 갱신 (Unity 초기화 후에도 데이터 수신 보장)
+  const { data: polledPipeline, loading: pipelinePollingLoading } = usePolling(fetchPipeline, 10000);
   useEffect(() => {
-    fetchPipeline()
-      .then((result) => {
-        setPipelineResult(result);
-        setPipelineLoading(false);
-      })
-      .catch((err) => {
-        console.error("Pipeline fetch failed:", err);
-        setPipelineLoading(false);
-      });
-  }, []);
+    if (polledPipeline) {
+      setPipelineResult(polledPipeline);
+      setPipelineLoading(false);
+    }
+  }, [polledPipeline]);
 
   // Called by HRTControls when sliders change
   const handleHRTChange = useCallback(async (newRatios, shouldCallAPI) => {
