@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 
 /**
  * Unity WebGL 3D 뷰 컴포넌트
@@ -14,6 +14,7 @@ import { useRef, useEffect, useCallback } from "react";
 export default function Unity3DView({ sensors, pipelineResult }) {
   const iframeRef = useRef(null);
   const unityReadyRef = useRef(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
   const latestSensorsRef = useRef(sensors);
   const latestPipelineRef = useRef(pipelineResult);
 
@@ -29,6 +30,7 @@ export default function Unity3DView({ sensors, pipelineResult }) {
 
   // iframe 로드 완료 후 Unity 준비 대기 → 초기 데이터 전송
   const handleIframeLoad = useCallback(() => {
+    setIframeLoaded(true);
     // Unity WebGL 초기화는 iframe load 후 수 초 더 걸림
     // 3초 후 첫 전송, 7초 후 재전송 (안전장치)
     const send = () => {
@@ -82,7 +84,14 @@ export default function Unity3DView({ sensors, pipelineResult }) {
           allow="autoplay; fullscreen"
           onLoad={handleIframeLoad}
         />
-        {isLoading && (
+        {!iframeLoaded && (
+          <div className="unity-loading-overlay">
+            <div className="unity-spinner" />
+            <p className="unity-loading-text">3D 뷰 로딩 중...</p>
+            <p className="unity-loading-sub">최대 30초 소요될 수 있습니다</p>
+          </div>
+        )}
+        {isLoading && iframeLoaded && (
           <div className="unity-overlay-hint">데이터 로딩 중...</div>
         )}
       </div>
