@@ -26,11 +26,16 @@ unity/AquaView3D/Logs/
 unity/AquaView3D/UserSettings/
 unity/AquaView3D/obj/
 unity/AquaView3D/Builds/
+unity/AquaView3D/.vs/
 *.csproj
 *.sln
 *.pidb
 *.unityproj
 unity/AquaView3D/.vsconfig
+
+# Unity font raw files (only .asset SDF files are needed)
+*.ttf
+*.otf
 
 # Claude Code
 .claude/
