@@ -84,10 +84,10 @@ public class StageLabelUI : MonoBehaviour
 
         TextMeshProUGUI tmp = go.AddComponent<TextMeshProUGUI>();
         tmp.text          = StageNames[stageIndex];
-        tmp.fontSize      = 14f;
+        tmp.fontSize      = 20f;
         tmp.color         = Color.white;
         tmp.alignment     = TextAlignmentOptions.Center;
-        tmp.fontStyle     = FontStyles.Bold;
+        tmp.fontStyle     = FontStyles.Normal;
         tmp.raycastTarget = false;
 
         // NotoSansKR-Bold SDF 폰트 적용 (Inspector에서 연결)
