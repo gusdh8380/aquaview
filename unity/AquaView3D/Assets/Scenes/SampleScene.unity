@@ -998,7 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ea6be75f35fd04a8f28803763f7e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overviewPosition: {x: 0, y: 16, z: -12}
+  overviewPosition: {x: 0, y: 16, z: 12}
   overviewLookTarget: {x: 0, y: 0, z: 0}
   zoomOffset: {x: 0, y: 6, z: -9}
   transitionDuration: 0.9
@@ -1020,22 +1020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e87a7e021b2d7a42a795dbc7dc73e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  rotateSpeed: 180
-  minVerticalAngle: 5
-  maxVerticalAngle: 80
-  zoomSpeed: 5
-  minDistance: 4
-  maxDistance: 30
-  initialDistance: 18
-  initialYaw: 2.6
-  initialPitch: 19.2
-  _yaw: 0
-  _pitch: 0
-  _distance: 0
-  _targetYaw: 0
-  _targetPitch: 0
-  _targetDistance: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -5003,8 +4987,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
