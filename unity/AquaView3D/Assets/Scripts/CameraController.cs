@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 전체뷰(Overview) ↔ 시설 줌인(Detail) 카메라 전환을 담당합니다.
@@ -87,22 +88,26 @@ public class CameraController : MonoBehaviour
 
     void UpdateOrbit()
     {
-        // 마우스 드래그 회전
-        if (Input.GetMouseButton(0))
+        // 마우스 드래그 회전 (New Input System)
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
         {
-            float dx = Input.GetAxis("Mouse X");
-            float dy = Input.GetAxis("Mouse Y");
+            Vector2 delta = Mouse.current.delta.ReadValue();
+            float dx =  delta.x * 0.1f;
+            float dy =  delta.y * 0.1f;
             _targetYaw   += dx * rotateSpeed * Time.deltaTime;
             _targetPitch -= dy * rotateSpeed * Time.deltaTime;
             _targetPitch  = Mathf.Clamp(_targetPitch, minVerticalAngle, maxVerticalAngle);
         }
 
-        // 스크롤 줌
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (Mathf.Abs(scroll) > 0.001f)
+        // 스크롤 줌 (New Input System)
+        if (Mouse.current != null)
         {
-            _targetDistance -= scroll * zoomSpeed;
-            _targetDistance  = Mathf.Clamp(_targetDistance, minDistance, maxDistance);
+            float scroll = Mouse.current.scroll.ReadValue().y * 0.01f;
+            if (Mathf.Abs(scroll) > 0.001f)
+            {
+                _targetDistance -= scroll * zoomSpeed;
+                _targetDistance  = Mathf.Clamp(_targetDistance, minDistance, maxDistance);
+            }
         }
 
         // 부드럽게 적용

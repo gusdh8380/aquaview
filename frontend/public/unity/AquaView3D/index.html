@@ -18,13 +18,13 @@
     var unityInstance = null;
 
     createUnityInstance(document.getElementById("unity-canvas"), {
-      dataUrl:      "Build/AquaView3D.data",
-      frameworkUrl:  "Build/AquaView3D.framework.js",
-      codeUrl:       "Build/AquaView3D.wasm",
+      dataUrl:            "Build/AquaView3D.data",
+      frameworkUrl:       "Build/AquaView3D.framework.js",
+      codeUrl:            "Build/AquaView3D.wasm",
       streamingAssetsUrl: "StreamingAssets",
-      companyName:   "DefaultCompany",
-      productName:   "AquaView3D",
-      productVersion: "0.1.0"
+      companyName:        "DefaultCompany",
+      productName:        "AquaView3D",
+      productVersion:     "0.1.0"
     }).then(function (instance) {
       unityInstance = instance;
     });
@@ -32,18 +32,16 @@
     // React postMessage → Unity SendMessage 브릿지
     window.addEventListener("message", function (event) {
       if (!unityInstance) return;
-      if (!event.data || !event.data.type) return;
+      if (!event.data) return;
 
-      // 실시간 센서 데이터 (pH, 탁도, 유량, 수온)
+      // 센서 데이터
       if (event.data.type === "SENSOR_UPDATE") {
-        var json = JSON.stringify(event.data);
-        unityInstance.SendMessage("SensorDataReceiver", "ReceiveSensorData", json);
+        unityInstance.SendMessage("SensorDataReceiver", "ReceiveSensorData", JSON.stringify(event.data));
       }
 
-      // 파이프라인 처리 결과 (BOD, TSS, NH3, 5단계 상태)
+      // 파이프라인 데이터
       if (event.data.type === "PIPELINE_UPDATE") {
-        var json = JSON.stringify(event.data.pipeline);
-        unityInstance.SendMessage("SensorDataReceiver", "ReceivePipelineData", json);
+        unityInstance.SendMessage("SensorDataReceiver", "ReceivePipelineData", JSON.stringify(event.data.pipeline));
       }
     });
   </script>
