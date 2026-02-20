@@ -4,12 +4,6 @@
 
 🌐 **라이브 데모: [http://aquaview-demo.duckdns.org](http://aquaview-demo.duckdns.org)**
 
-## 🎬 시연 영상
-
-<video src="docs/demo.mov" controls width="100%"></video>
-
-> Unity 3D 뷰 탱크 클릭·줌인, HRT 슬라이더 조절에 따른 수질 연쇄 변화, 실시간 센서 모니터링 동작을 확인할 수 있습니다.
-
 ## 📸 스크린샷
 
 ### 실시간 센서 대시보드 + Unity 3D 뷰
