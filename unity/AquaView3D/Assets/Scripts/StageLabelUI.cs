@@ -7,10 +7,10 @@ using TMPro;
 /// [사용 방법]
 ///   StageView GameObject에 이 컴포넌트를 추가하면 자동으로
 ///   World Space Canvas + TextMeshPro 텍스트를 생성합니다.
-///   별도 Prefab/Inspector 연결 불필요.
 ///
 /// [Inspector 설정]
 ///   stageIndex  : 공정 인덱스 (0~4), StageView와 동일하게 설정
+///   fontAsset   : Assets/Noto_Sans_KR/static/NotoSansKR-Bold SDF.asset 연결
 ///   labelOffset : 탱크 중심으로부터의 텍스트 위치 오프셋 (기본 0, 1, 0)
 ///   labelScale  : 텍스트 크기 배율 (기본 0.012)
 ///   faceCamera  : true면 항상 카메라를 향해 회전
@@ -20,6 +20,9 @@ public class StageLabelUI : MonoBehaviour
     [Header("공정 인덱스 (StageView와 동일하게 설정)")]
     [Range(0, 4)]
     public int stageIndex = 0;
+
+    [Header("폰트 에셋 (NotoSansKR-Bold SDF.asset 연결)")]
+    public TMP_FontAsset fontAsset;
 
     [Header("텍스트 위치 (탱크 중심 기준 오프셋)")]
     public Vector3 labelOffset = new Vector3(0f, 1f, 0f);
@@ -86,6 +89,10 @@ public class StageLabelUI : MonoBehaviour
         tmp.alignment     = TextAlignmentOptions.Center;
         tmp.fontStyle     = FontStyles.Bold;
         tmp.raycastTarget = false;
+
+        // NotoSansKR-Bold SDF 폰트 적용 (Inspector에서 연결)
+        if (fontAsset != null)
+            tmp.font = fontAsset;
 
         RectTransform rt = go.GetComponent<RectTransform>();
         rt.anchorMin = Vector2.zero;
