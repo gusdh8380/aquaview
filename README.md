@@ -2,6 +2,8 @@
 
 **수처리 공정 모니터링 시스템** — 실시간 센서 대시보드 + 하수 처리 파이프라인 시뮬레이션 + Unity 3D 시각화를 결합한 풀스택 포트폴리오 프로젝트
 
+🌐 **라이브 데모: [http://aquaview-demo.duckdns.org](http://aquaview-demo.duckdns.org)**
+
 ## 🎬 시연 영상
 
 <video src="docs/demo.mov" controls width="100%"></video>
@@ -70,7 +72,7 @@
 | Frontend | React 19, Vite, Recharts |
 | 3D | Unity 6 (URP), WebGL, TextMeshPro |
 | 통신 | REST API, postMessage 브릿지 |
-| 배포 | Docker, Docker Compose, Nginx |
+| 배포 | Docker, Docker Compose, Nginx, AWS EC2, DuckDNS |
 
 ## 📁 프로젝트 구조
 
@@ -136,11 +138,22 @@ npm run dev
 
 브라우저에서 http://localhost:5173 접속
 
-### Docker 배포
+### Docker 배포 (로컬)
 
 ```bash
 docker-compose up -d --build
 ```
+
+### AWS EC2 배포
+
+```bash
+# EC2 인스턴스에서 실행
+git clone https://github.com/gusdh8380/aquaview.git
+cd aquaview
+sudo HOST_IP=aquaview-demo.duckdns.org docker compose up -d --build
+```
+
+> 배포 환경: AWS EC2 t3.micro (ap-southeast-2), Docker Compose, Nginx
 
 ## 📡 API 엔드포인트
 
