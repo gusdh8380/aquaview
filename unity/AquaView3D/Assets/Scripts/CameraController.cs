@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
 
     // ── Inspector 설정 ────────────────────────────────────
     [Header("전체뷰 카메라 위치/각도")]
-    public Vector3 overviewPosition  = new Vector3(0f, 15f, -22f);
+    public Vector3 overviewPosition  = new Vector3(0f, 16f, -12f);
     public Vector3 overviewLookTarget = new Vector3(0f, 0f, 0f);
 
     [Header("줌인 카메라 오프셋 (시설 기준)")]
@@ -75,7 +75,7 @@ public class CameraController : MonoBehaviour
         Vector3 offset = overviewPosition - overviewLookTarget;
         _distance = _targetDistance = offset.magnitude;
         _pitch    = _targetPitch    = Mathf.Asin(offset.normalized.y) * Mathf.Rad2Deg;
-        _yaw      = _targetYaw      = Mathf.Atan2(offset.x, offset.z) * Mathf.Rad2Deg;
+        _yaw      = _targetYaw      = Mathf.Atan2(offset.x, -offset.z) * Mathf.Rad2Deg;
     }
 
     void Update()
@@ -158,7 +158,7 @@ public class CameraController : MonoBehaviour
             Vector3 offset = overviewPosition - overviewLookTarget;
             _distance = _targetDistance = offset.magnitude;
             _pitch    = _targetPitch    = Mathf.Asin(offset.normalized.y) * Mathf.Rad2Deg;
-            _yaw      = _targetYaw      = Mathf.Atan2(offset.x, offset.z) * Mathf.Rad2Deg;
+            _yaw      = _targetYaw      = Mathf.Atan2(offset.x, -offset.z) * Mathf.Rad2Deg;
         }));
     }
 
