@@ -587,6 +587,7 @@ GameObject:
   - component: {fileID: 243481096}
   - component: {fileID: 243481095}
   - component: {fileID: 243481094}
+  - component: {fileID: 243481099}
   m_Layer: 0
   m_Name: Stage_5_Disinfection
   m_TagString: Untagged
@@ -702,6 +703,23 @@ Transform:
   - {fileID: 539689757}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &243481099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243481093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b5f0614626746f18f1fca9926935cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 4
+  fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  labelOffset: {x: 0, y: 1, z: 0}
+  labelScale: 0.012
+  faceCamera: 1
 --- !u!1 &282483388
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +878,6 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
-  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -998,7 +1015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ea6be75f35fd04a8f28803763f7e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overviewPosition: {x: 0, y: 16, z: 12}
+  overviewPosition: {x: 0, y: 16, z: -12}
   overviewLookTarget: {x: 0, y: 0, z: 0}
   zoomOffset: {x: 0, y: 6, z: -9}
   transitionDuration: 0.9
@@ -1008,18 +1025,6 @@ MonoBehaviour:
   zoomSpeed: 5
   minDistance: 6
   maxDistance: 35
---- !u!114 &330585549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e87a7e021b2d7a42a795dbc7dc73e9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,12 +1203,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TSS :
-
-'
+  m_text: '-'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1768,6 +1771,7 @@ GameObject:
   - component: {fileID: 557117304}
   - component: {fileID: 557117303}
   - component: {fileID: 557117307}
+  - component: {fileID: 557117308}
   m_Layer: 0
   m_Name: Stage_1_PrimarySettling
   m_TagString: Untagged
@@ -1883,6 +1887,23 @@ MonoBehaviour:
   waterRenderer: {fileID: 1923230711}
   minWaterScale: 0.05
   maxWaterScale: 0.9
+--- !u!114 &557117308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557117302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b5f0614626746f18f1fca9926935cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 0
+  fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  labelOffset: {x: 0, y: 1, z: 0}
+  labelScale: 0.012
+  faceCamera: 1
 --- !u!1 &683533184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2154,6 +2175,7 @@ GameObject:
   - component: {fileID: 789079099}
   - component: {fileID: 789079098}
   - component: {fileID: 789079097}
+  - component: {fileID: 789079102}
   m_Layer: 0
   m_Name: Stage_4_Nitrification
   m_TagString: Untagged
@@ -2269,6 +2291,23 @@ Transform:
   - {fileID: 1173382491}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &789079102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789079096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b5f0614626746f18f1fca9926935cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 3
+  fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  labelOffset: {x: 0, y: 1, z: 0}
+  labelScale: 0.012
+  faceCamera: 1
 --- !u!1 &817077459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,12 +2365,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TSS :
-
-'
+  m_text: '-'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3021,12 +3058,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'COD :
-
-'
+  m_text: '-'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3493,8 +3528,8 @@ MonoBehaviour:
   inTSSText: {fileID: 413400563}
   inCODText: {fileID: 1231146428}
   inNH3Text: {fileID: 1849551803}
-  outBODText: {fileID: 2063946463}
-  outTSSText: {fileID: 2088464406}
+  outBODText: {fileID: 2088464406}
+  outTSSText: {fileID: 817077461}
   outCODText: {fileID: 1052833550}
   outNH3Text: {fileID: 1230619668}
   removalBODText: {fileID: 1941496000}
@@ -3620,6 +3655,7 @@ GameObject:
   - component: {fileID: 1186612908}
   - component: {fileID: 1186612907}
   - component: {fileID: 1186612906}
+  - component: {fileID: 1186612911}
   m_Layer: 0
   m_Name: Stage_2_Aeration
   m_TagString: Untagged
@@ -3735,6 +3771,23 @@ Transform:
   - {fileID: 10897912}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1186612911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186612905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b5f0614626746f18f1fca9926935cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 1
+  fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  labelOffset: {x: 0, y: 1, z: 0}
+  labelScale: 0.012
+  faceCamera: 1
 --- !u!1 &1198847578
 GameObject:
   m_ObjectHideFlags: 0
@@ -3989,10 +4042,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "NH3 : \n"
+  m_text: '-'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4125,10 +4178,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "COD : \n"
+  m_text: '-'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4811,6 +4864,7 @@ GameObject:
   - component: {fileID: 1387539713}
   - component: {fileID: 1387539712}
   - component: {fileID: 1387539711}
+  - component: {fileID: 1387539716}
   m_Layer: 0
   m_Name: Stage_3_SecondarySettling
   m_TagString: Untagged
@@ -4926,6 +4980,23 @@ Transform:
   - {fileID: 713023102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1387539716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387539710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b5f0614626746f18f1fca9926935cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 2
+  fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  labelOffset: {x: 0, y: 1, z: 0}
+  labelScale: 0.012
+  faceCamera: 1
 --- !u!1 &1409173830
 GameObject:
   m_ObjectHideFlags: 0
@@ -5911,12 +5982,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'NH3 :
-
-'
+  m_text: '-'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6552,10 +6621,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "BOD : \n"
+  m_text: '-'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6969,10 +7038,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "BOD : \n"
+  m_text: '-'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
+  m_sharedMaterial: {fileID: -5620848985266713842, guid: e67c5eb88215aef4f81c08334420ca31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
