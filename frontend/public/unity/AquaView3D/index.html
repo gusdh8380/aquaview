@@ -34,12 +34,9 @@
       if (!unityInstance) return;
       if (!event.data) return;
 
-      // 센서 데이터
       if (event.data.type === "SENSOR_UPDATE") {
         unityInstance.SendMessage("SensorDataReceiver", "ReceiveSensorData", JSON.stringify(event.data));
       }
-
-      // 파이프라인 데이터
       if (event.data.type === "PIPELINE_UPDATE") {
         unityInstance.SendMessage("SensorDataReceiver", "ReceivePipelineData", JSON.stringify(event.data.pipeline));
       }
