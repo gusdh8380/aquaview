@@ -171,18 +171,18 @@ public class DetailUI : MonoBehaviour
 
         if (influent != null)
         {
-            SetText(inBODText, $"{influent.bod:F1} mg/L");
-            SetText(inTSSText, $"{influent.tss:F1} mg/L");
-            SetText(inCODText, $"{influent.cod:F1} mg/L");
-            SetText(inNH3Text, $"{influent.ammonia:F2} mg/L");
+            SetText(inBODText, $"BOD : {influent.bod:F1} mg/L");
+            SetText(inTSSText, $"TSS : {influent.tss:F1} mg/L");
+            SetText(inCODText, $"COD : {influent.cod:F1} mg/L");
+            SetText(inNH3Text, $"NH₃ : {influent.ammonia:F2} mg/L");
         }
 
         if (effluent != null)
         {
-            SetText(outBODText, $"{effluent.bod:F1} mg/L");
-            SetText(outTSSText, $"{effluent.tss:F1} mg/L");
-            SetText(outCODText, $"{effluent.cod:F1} mg/L");
-            SetText(outNH3Text, $"{effluent.ammonia:F2} mg/L");
+            SetText(outBODText, $"BOD : {effluent.bod:F1} mg/L");
+            SetText(outTSSText, $"TSS : {effluent.tss:F1} mg/L");
+            SetText(outCODText, $"COD : {effluent.cod:F1} mg/L");
+            SetText(outNH3Text, $"NH₃ : {effluent.ammonia:F2} mg/L");
         }
 
         // ── 제거율
@@ -193,8 +193,8 @@ public class DetailUI : MonoBehaviour
             float tssRemoval = influent.tss > 0.01f
                 ? (influent.tss - effluent.tss) / influent.tss * 100f : 0f;
 
-            SetText(removalBODText, $"↓{bodRemoval:F0}%");
-            SetText(removalTSSText, $"↓{tssRemoval:F0}%");
+            SetText(removalBODText, $"BOD ↓{bodRemoval:F0}%");
+            SetText(removalTSSText, $"TSS ↓{tssRemoval:F0}%");
 
             // 제거율 색상 (높을수록 초록)
             if (removalBODText != null)
