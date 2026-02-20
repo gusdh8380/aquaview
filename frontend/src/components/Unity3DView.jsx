@@ -72,7 +72,7 @@ export default function Unity3DView({ sensors, pipelineResult }) {
 
   return (
     <div className="unity-view-container">
-      <h2 className="section-title">🏭 3D 공정 뷰</h2>
+      <h2 className="section-title">🎮 3D 공정 뷰</h2>
       <div className="unity-frame-wrapper">
         <iframe
           ref={iframeRef}

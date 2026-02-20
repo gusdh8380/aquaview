@@ -1,61 +1,59 @@
 # 💧 AquaView
 
-**수처리 공정 모니터링 시스템** — 실시간 센서 데이터 + 하수 처리 파이프라인 시뮬레이션 + Unity 3D 시각화를 결합한 풀스택 대시보드
-
-## 📸 스크린샷
-
-### 실시간 센서 대시보드
-![센서 대시보드](docs/screenshots/dashboard_sensor.png)
-
-### 하수 처리 공정 시뮬레이션
-![파이프라인 시뮬레이션](docs/screenshots/dashboard_pipeline.png)
+**수처리 공정 모니터링 시스템** — 실시간 센서 대시보드 + 하수 처리 파이프라인 시뮬레이션 + Unity 3D 시각화를 결합한 풀스택 포트폴리오 프로젝트
 
 ## 🎯 프로젝트 개요
 
-AquaView는 수처리 시설의 핵심 센서(pH, 탁도, 유량, 수온)를 실시간으로 모니터링하고, 5단계 하수 처리 파이프라인을 시뮬레이션하는 웹 기반 대시보드입니다. FastAPI 백엔드가 센서 데이터와 파이프라인 계산을 처리하고, React 프론트엔드가 차트·공정도·HRT 슬라이더를 표시하며, Unity WebGL이 3D 공정 뷰를 제공합니다.
+실제 EPA/WEF 수처리 공학 데이터를 기반으로, 수처리 시설의 센서 모니터링과 5단계 하수 처리 공정 시뮬레이션을 인터랙티브하게 시각화한 대시보드입니다.
+
+- **실시간 센서 모니터링**: pH, 탁도, 유량, 수온 — 3초 폴링, 상태별 경보
+- **파이프라인 시뮬레이션**: HRT 슬라이더 조절 → BOD/TSS/COD/NH₃ 연쇄 계산
+- **Unity 3D 뷰**: WebGL 임베드 — 탱크 수위·색상이 실시간 데이터로 변화
+- **SVG 공정 흐름도**: 5단계 공정을 클릭하면 각 공정 상세 수질 데이터 확인
 
 ## 🏗️ 아키텍처
 
 ```
-+------------------+      HTTP/REST      +------------------+    postMessage     +------------------+
-|     FastAPI      | <=================> |      React       | ================> |   Unity WebGL    |
-|     Backend      |    3s Polling       |    Dashboard     |                   |    3D View       |
-|                  |                     |                  |                   |                  |
-|  - Sensor Sim    |                     |  - Realtime Chart|                   |  - Tank Level    |
-|  - REST API      |                     |  - Alert Panel   |                   |  - Pipe Color    |
-|  - Status Check  |                     |  - Sensor Cards  |                   |  - Sensor Labels |
-+------------------+                     +------------------+                   +------------------+
+[FastAPI 백엔드]  ←──HTTP REST──→  [React 대시보드]  ──postMessage──→  [Unity WebGL 3D]
+  센서 시뮬레이션                    3초 폴링                               탱크·파이프
+  파이프라인 계산                    SVG 공정도                             수위·색상
+  REST API                          HRT 슬라이더                           공정명 레이블
 ```
 
-## 📊 모니터링 센서
+## 📸 주요 기능
 
-| 센서 | 단위 | 정상 범위 | 경고 범위 | 위험 범위 |
-|------|------|----------|----------|----------|
-| pH | pH | 6.5 ~ 8.5 | 6.0~6.5 / 8.5~9.0 | <6.0 / >9.0 |
-| 탁도 | NTU | 0 ~ 5 | 5 ~ 10 | >10 |
-| 유량 | m³/h | 50 ~ 150 | 30~50 / 150~180 | <30 / >180 |
-| 수온 | °C | 15 ~ 25 | 10~15 / 25~30 | <10 / >30 |
+### 1. 실시간 센서 카드
+- 4개 센서(pH / 탁도 / 유량 / 수온) 현재값 + 정상/경고/위험 상태 표시
+- 카드 클릭 → 해당 센서의 시계열 히스토리 차트 전환
+- 헤더 우측에 전체 시스템 상태 배지 (펄스 애니메이션)
+
+### 2. Unity 3D 공정 뷰
+- 5개 탱크(1차침전 / 폭기조 / 2차침전 / 질산화 / 소독) 3D 시각화
+- 수질 상태에 따라 탱크 물 색상 변화 (파랑=정상 / 노랑=경고 / 빨강=위험)
+- 파이프 색상도 실시간 상태 반영
+- 각 탱크 위 공정명 레이블 (NotoSansKR 폰트, 항상 카메라 방향)
+- 탱크/사이드바 버튼 클릭 → 해당 공정으로 줌인, 세부 수질 데이터 패널 표시
+- 전체보기 버튼으로 오버뷰 복귀
+
+### 3. 하수 처리 공정 시뮬레이션
+- **SVG 공정 흐름도**: 원수 → 5단계 → 처리수 흐름, 각 공정 상태 색상 표시
+- **HRT 슬라이더**: 공정별 체류시간 조절 (25%~250%) → API 호출 → 연쇄 재계산
+- **수질 비교 카드**: 원수 vs 처리수 BOD/TSS/COD/NH₃ 비교 + 제거율
+- **공정 상세 패널**: 선택한 공정의 유입수/유출수/제거율 상세 표시
+
+### 4. 히스토리 차트 + 경보 패널
+- 최근 20개 이력 시계열 차트 (정상 범위 상·하한선 표시)
+- 경보 발생 시 경고/위험 메시지 목록 실시간 갱신
 
 ## 🛠️ 기술 스택
 
-### Backend
-- **Python 3.9+** / **FastAPI** / **Uvicorn**
-- 인메모리 센서 시뮬레이션 (Gaussian drift 기반)
-- REST API (3개 엔드포인트)
-
-### Frontend
-- **React 19** / **Vite** / **Recharts**
-- 3초 폴링 기반 실시간 갱신
-- 반응형 다크 테마 대시보드
-
-### 3D Visualization
-- **Unity 6** (URP) / **WebGL**
-- React ↔ Unity postMessage 브릿지
-- 실시간 센서 연동 (수위, 색상, 텍스트)
-
-### Deployment
-- **Docker** / **Docker Compose**
-- **AWS EC2** (t3.micro 프리티어)
+| 영역 | 기술 |
+|------|------|
+| Backend | Python 3.9+, FastAPI, Uvicorn |
+| Frontend | React 19, Vite, Recharts |
+| 3D | Unity 6 (URP), WebGL, TextMeshPro |
+| 통신 | REST API, postMessage 브릿지 |
+| 배포 | Docker, Docker Compose, Nginx |
 
 ## 📁 프로젝트 구조
 
@@ -63,40 +61,42 @@ AquaView는 수처리 시설의 핵심 센서(pH, 탁도, 유량, 수온)를 실
 aquaview/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py              # FastAPI 앱, CORS 설정
-│   │   ├── models.py            # Pydantic 모델
-│   │   ├── simulator.py         # 센서 시뮬레이션 엔진
+│   │   ├── main.py          # FastAPI 앱, CORS 설정
+│   │   ├── models.py        # Pydantic 모델 (센서 + 파이프라인)
+│   │   ├── simulator.py     # 인메모리 센서 시뮬레이션 (Gaussian drift)
+│   │   ├── pipeline.py      # 5단계 연쇄 계산 엔진 (시그모이드 HRT 커브)
 │   │   └── routers/
-│   │       ├── sensors.py       # GET /api/sensors
-│   │       ├── alerts.py        # GET /api/alerts
-│   │       └── history.py       # GET /api/history
+│   │       ├── sensors.py   # GET /api/sensors
+│   │       ├── alerts.py    # GET /api/alerts
+│   │       ├── history.py   # GET /api/history
+│   │       └── pipeline.py  # GET /api/pipeline, POST /api/pipeline/params
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── frontend/
 │   ├── src/
-│   │   ├── api/client.js        # API 호출 함수
-│   │   ├── hooks/usePolling.js  # 폴링 커스텀 훅
-│   │   ├── components/
-│   │   │   ├── SensorCard.jsx              # 센서 카드
-│   │   │   ├── HistoryChart.jsx            # 시계열 차트
-│   │   │   ├── AlertPanel.jsx              # 경보 패널
-│   │   │   ├── Unity3DView.jsx             # 3D 뷰 iframe 브릿지
-│   │   │   ├── ProcessFlowDiagram.jsx      # SVG 공정 흐름도 (클릭 가능)
-│   │   │   ├── HRTControls.jsx             # 공정별 HRT 슬라이더 패널
-│   │   │   └── WaterQualityComparison.jsx  # 원수 vs 처리수 비교 카드
-│   │   ├── App.jsx
-│   │   └── App.css
-│   ├── public/unity/            # WebGL 빌드 결과물
+│   │   ├── api/client.js
+│   │   ├── hooks/usePolling.js
+│   │   └── components/
+│   │       ├── SensorCard.jsx
+│   │       ├── HistoryChart.jsx
+│   │       ├── AlertPanel.jsx
+│   │       ├── Unity3DView.jsx          # postMessage 브릿지
+│   │       ├── ProcessFlowDiagram.jsx   # SVG 공정 흐름도
+│   │       ├── HRTControls.jsx          # HRT 슬라이더
+│   │       └── WaterQualityComparison.jsx
+│   ├── public/unity/                    # Unity WebGL 빌드
 │   ├── Dockerfile
 │   └── nginx.conf
-├── unity/AquaView3D/            # Unity 6 프로젝트
+├── unity/AquaView3D/
 │   └── Assets/Scripts/
-│       ├── SensorDataReceiver.cs   # 데이터 수신 싱글톤 (센서 + 파이프라인)
-│       ├── TankController.cs       # 탱크 수위/색상 제어 (Raw/Clean 역할)
-│       ├── OrbitCamera.cs          # 마우스 드래그/스크롤 카메라
-│       ├── PumpAnimator.cs         # 유량 기반 펌프 회전 애니메이션
-│       ├── WaterFlowParticle.cs    # 탁도/유량 기반 파티클 시스템
-│       └── UIController.cs         # 5단계 공정 상태 UI 오버레이
+│       ├── SensorDataReceiver.cs  # postMessage 수신 싱글톤
+│       ├── StageView.cs           # 탱크 수위·색상 제어
+│       ├── StageLabelUI.cs        # 탱크 위 공정명 레이블 (World Space)
+│       ├── DetailUI.cs            # 줌인 시 수질 데이터 패널
+│       ├── SidebarUI.cs           # 공정 선택 사이드바
+│       ├── CameraController.cs    # 오빗 카메라 (줌인/전체보기)
+│       ├── PipeController.cs      # 파이프 색상 제어
+│       └── PumpAnimator.cs        # 유량 기반 펌프 애니메이션
 ├── docker-compose.yml
 └── CLAUDE.md
 ```
@@ -106,12 +106,12 @@ aquaview/
 ### 로컬 개발
 
 ```bash
-# Backend (port 8000)
+# 1. 백엔드 실행 (port 8000)
 cd backend
 pip install -r requirements.txt
 python3 -m uvicorn app.main:app --reload
 
-# Frontend (port 5173)
+# 2. 프론트엔드 실행 (port 5173)
 cd frontend
 npm install
 npm run dev
@@ -122,7 +122,7 @@ npm run dev
 ### Docker 배포
 
 ```bash
-HOST_IP=<서버IP> docker-compose up -d --build
+docker-compose up -d --build
 ```
 
 ## 📡 API 엔드포인트
@@ -130,34 +130,37 @@ HOST_IP=<서버IP> docker-compose up -d --build
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/sensors` | 4개 센서 현재값 + 상태 |
-| GET | `/api/alerts` | 경고/위험 상태 경보 목록 |
-| GET | `/api/history?sensor={type}&limit={n}` | 센서별 시계열 이력 |
-| GET | `/api/pipeline` | 기본 HRT(100%)로 파이프라인 계산 결과 반환 |
-| POST | `/api/pipeline/params` | HRT 비율 배열 → 5단계 연쇄 계산 실행 |
+| GET | `/api/alerts` | 경고/위험 경보 목록 |
+| GET | `/api/history?sensor={type}&limit={n}` | 센서 시계열 이력 |
+| GET | `/api/pipeline` | 기본 HRT(100%)로 파이프라인 계산 |
+| POST | `/api/pipeline/params` | HRT 비율 배열 → 5단계 연쇄 계산 |
 
-## 🏭 파이프라인 시뮬레이션
-
-실제 EPA/WEF 수처리 기준 데이터 기반 5단계 연쇄 계산 엔진:
+## 🏭 파이프라인 시뮬레이션 원리
 
 ```
 원수 (BOD 200, TSS 220 mg/L)
-  ↓ [1차 침전]  HRT 2h   — TSS/BOD 중력 침전 제거
-  ↓ [폭기조]    HRT 6h   — 미생물 유기물 분해 (BOD/COD 주요 제거)
-  ↓ [2차 침전]  HRT 1.5h — 활성슬러지 분리
-  ↓ [질산화]    HRT 10h  — NH₃→NO₃ 변환 (암모니아 제거)
-  ↓ [소독]      HRT 0.5h — 염소 CT값 기반 병원균 제거
+  ↓ [1차 침전]  HRT 2h    — TSS 65%, BOD 45% 중력 침전
+  ↓ [폭기조]    HRT 6h    — BOD 88%, COD 78% 미생물 분해
+  ↓ [2차 침전]  HRT 1.5h  — 활성슬러지 분리
+  ↓ [질산화]    HRT 10h   — NH₃ 90% 제거 (균 washout에 민감)
+  ↓ [소독]      HRT 0.5h  — 대장균 99.99% 염소 CT 제거
 처리수 (BOD <10, TSS <10 mg/L 목표)
 ```
 
-HRT 슬라이더를 조절하면 시그모이드 커브 기반으로 각 공정의 제거율이 연쇄적으로 변화합니다.
+각 공정의 HRT → 수질 제거율 관계는 **시그모이드 함수**로 모델링:
+- HRT가 짧아질수록 제거율 급감 (특히 질산화는 균 washout으로 매우 민감)
+- EPA Secondary Treatment 기준값 기반 파라미터 설정
 
-## 🎮 3D 뷰 통신 흐름
+## 🎮 React ↔ Unity 통신 구조
 
 ```
-React (usePolling 3초)
-  └─ fetchSensors() + fetchPipeline() → JSON 수신
-      ├─ postMessage({ type: "SENSOR_UPDATE", sensors })
-      │   └─ Unity → SensorDataReceiver → TankController(Raw), PumpAnimator, WaterFlowParticle
-      └─ postMessage({ type: "PIPELINE_UPDATE", pipeline })
-          └─ Unity → SensorDataReceiver → TankController(Clean), UIController(5단계 상태 오버레이)
+React (3초/10초 폴링)
+  ├─ SENSOR_UPDATE  → SensorDataReceiver → StageView (수위/색상)
+  │                                      → PipeController (파이프 색상)
+  │                                      → PumpAnimator (펌프 속도)
+  └─ PIPELINE_UPDATE → SensorDataReceiver → StageView (5단계 상태)
+                                          → DetailUI (수질 수치 패널)
+                                          → SidebarUI (상태 점 색상)
 ```
+
+Unity가 초기화되기까지 3~10초 소요되므로, iframe `onLoad` 후 3초/7초 재전송 + 10초 폴링으로 데이터 수신을 보장합니다.

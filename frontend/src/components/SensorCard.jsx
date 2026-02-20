@@ -26,12 +26,15 @@ const SENSOR_ICONS = {
 
 export default function SensorCard({ sensor, onClick, isSelected }) {
   const color = STATUS_COLORS[sensor.status];
-  const borderStyle = isSelected ? `3px solid ${color}` : `2px solid ${color}40`;
 
   return (
     <div
       className="sensor-card"
-      style={{ border: borderStyle, cursor: "pointer" }}
+      style={{
+        borderColor: isSelected ? color : `${color}40`,
+        cursor: "pointer",
+        boxShadow: isSelected ? `0 0 0 1px ${color}40` : "none",
+      }}
       onClick={() => onClick?.(sensor.sensor)}
     >
       <div className="sensor-card-header">
